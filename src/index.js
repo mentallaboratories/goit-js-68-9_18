@@ -1,5 +1,7 @@
 import {v4 as uuidv4} from 'uuid';
 import './styles.css';
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 
 
 const getTodo = ({id, value, checked}) =>{
@@ -7,14 +9,30 @@ const getTodo = ({id, value, checked}) =>{
   <li  class="list-item" data-id=${id}>
   <input data-action="check" class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
   <span class="input-text">${value}</span>
-  <button data-action="delete" class="button">x</button>
+  
   <button data-action="view" class="button">view</button>
+  <button data-action="delete" class="button">x</button>
 </li>`;
 };
+
+const modal = basicLightbox.create(`
+<div class="modal">
+    <h2 class="mod-title"></h2>
+    <p class="text">
+        The unique id is <span class="id-value"></span>
+    </p>
+    <button class="button" type="submit" id="button-modal">OK</button>
+</div>
+`);
+
 
 const refs = {
   form: document.querySelector('#form'),
   list: document.querySelector('#list'),
+  modButton: modal.element().querySelector('.button'),
+  idValue: modal.element().querySelector('.id-value'),
+  mobTitle: modal.element().querySelector('.mod-title'),
+
 };
 
 let todos = [];
@@ -63,8 +81,13 @@ const deleteTodo = id => {
   render();
 };
 
+
+
 const viewTodo = id => {
-  console.log('viewTodo')
+  //refs.mobTitle.textContent = todos.value;
+  refs.idValue.textContent = id;
+  modal.show();
+
 };
 
 const changeTodo = id =>{
@@ -103,4 +126,4 @@ render();
 
 refs.form.addEventListener('submit',onSubmit);
 refs.list.addEventListener('click', onItemClick);
-
+refs.modButton.addEventListener('click',()=>modal.close())

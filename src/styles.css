@@ -1,21 +1,27 @@
 body {
   background-color: antiquewhite;
 
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .section-title{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
   font-size: 20px;
   line-height: 1.2;
+  margin: 0 auto 5px auto;
+  width: 320px;
+  height: 26px;
 }
 
 .form{
-  background-color: blueviolet;
+  padding: 3px;
+  background-color: maroon;
+  border: 1px solid maroon;
+  border-radius: 4px;
   width: 320px;
   height: auto;
-  margin-bottom: 20px;
 
+  margin: 0 auto 15px auto;
   
   display: flex;
   align-items: center;
@@ -23,18 +29,21 @@ body {
 }
 
 .input{
-  background-color: blue;
-  width: 240px;
+  border: 1px solid maroon;
+  border-radius: 4px;
+  width: 220px;
   height: 24px;
 }
 
 .button-submit{
   display: inline-block;
   width: 80px;
-  height: 24px;
-  border: 1px solid tomato;
+  height: 26px;
+  border: 1px solid maroon;
+  color: maroon;
+  border-radius: 4px;
+  background-color: antiquewhite;
 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
   line-height: 1.2;
 }
@@ -47,8 +56,7 @@ body {
   row-gap: 10px;
   list-style: none;
   padding: 0;
-  margin: 0;
-  margin-top: 10px;
+  margin: 0 auto 15px auto;
 }
 
 .list-item{
@@ -62,16 +70,45 @@ body {
   height: 20px;
 }
 
+.text{
+  font-size: 16px;
+  line-height: 1;
+  margin: 0 auto 15px auto;
+  width: 320px;
+  height: 24px;
+}
+
 .input-text{
   width: 200px;
-  height: 24px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 18px;
+  height: 20px;
+  font-size: 16px;
   line-height: 1.12;
 }
 
 .button{
   width: auto;
   height: 20px;
-  background-color: brown;
+  background-color: maroon;
+  border-radius: 3px;
+  color: antiquewhite;
+}
+
+.modal{
+  background-color: antiquewhite;
+  padding: 7px;
+}
+
+.id-value{
+  font-family: 'Courier New', Courier, monospace;
+  color: maroon;
+  display: block;
+  font-size: 14px;
+}
+
+.mod-title{
+  background-color: maroon;
+  color: antiquewhite;
+  margin: 7px 3px;
+  padding: 3px 7px;
+  text-transform: uppercase;
 }
