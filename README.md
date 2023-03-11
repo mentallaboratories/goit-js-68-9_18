@@ -19,3 +19,7 @@
 ## Більш детально про налаштування Prettier + ESLint + Airbnb можете прочитати тут
 
 [https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a)
+
+
+!!!!!!! Для Node > 16 потрібно прописати 
+export NODE_OPTIONS=--openssl-legacy-provider

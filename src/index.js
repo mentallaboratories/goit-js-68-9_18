@@ -1,65 +1,76 @@
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import './styles.css';
 
-const getTodo = ({ id, value, checked }) => `
-  <li data-id=${id}>
-    <input type="checkbox" ${checked ? 'checked' : ''} />
-    <span>${value}</span>
-    <button data-action="delete">x</button>
-    <button data-action="view">view</button>
-  </li>`;
+
+const getTodo = ({id, value, checked}) =>{
+  return `
+  <li class="list-item" data-id=${id}>
+  <input class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
+  <span class="input-text">${value}</span>
+  <button data-action="delete" class="button">x</button>
+  <button data-action="view" class="button">view</button>
+</li>`;
+}
 
 const refs = {
-  form: document.querySelector('.form'),
-  list: document.querySelector('.todo-list'),
-};
+  form : document.querySelector('#form'),
+  list : document.querySelector('#list'),
+}
 
-let todos = [];
+const todos = [
+  {id:'1',value:'lorem ipsum', checked:true},
+  {id:'2',value:'lorem ipsum', checked:false}
+]
 
-const handleSubmit = event => {
-  const input = event.target.elements.text;
-  const { value } = input;
-  const newTodo = { id: uuidv4(), value, checked: false };
+const onSubmit = e =>{
+  const input = e.target.elements.text;
+  const {value} = input;
+  const newTodo = {id: uuidv4(), value, checked:false}
 
-  event.preventDefault();
+  console.log(newTodo); 
+
+  e.preventDefault();
   todos.push(newTodo);
   input.value = '';
   render();
+}
+
+
+const deleteTodo = ()=>{
+  console.log('delete')
 };
 
-const deleteTodo = id => {
-  todos = todos.filter(todo => todo.id !== id);
-  render();
+const viewTodo = ()=>{
+  console.log('view')
 };
 
-const viewTodo = id => {
-  console.log('view todo');
-};
+const onClick = e => {
+  const {action} = e.target.dataset;
+  const parent = e.target.closest('li');
+  const {id} = parent?.dataset||{};
 
-const handleTodoClick = event => {
-  const { action } = event.target.dataset;
-  const parent = event.target.closest('li');
-  const { id } = parent?.dataset || {};
+  console.log(id);
 
-  switch (action) {
+  switch(action){
     case 'delete':
       deleteTodo(id);
       break;
-
     case 'view':
       viewTodo(id);
       break;
   }
 };
 
-const render = () => {
-  const itemList = todos.map(todo => getTodo(todo)).join('');
+const render = () =>{
+  const itemList = todos.map(todo =>getTodo(todo)).join('');
 
   refs.list.innerHTML = '';
   refs.list.insertAdjacentHTML('beforeend', itemList);
 };
 
+
 render();
 
-refs.form.addEventListener('submit', handleSubmit);
-refs.list.addEventListener('click', handleTodoClick);
+refs.form.addEventListener('submit',onSubmit);
+refs.list.addEventListener('click', onClick);
+

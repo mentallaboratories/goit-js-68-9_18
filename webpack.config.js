@@ -23,6 +23,8 @@ module.exports = env =>
             exclude: /node_modules/,
             use: ['babel-loader'],
           },
+
+          
           {
             test: /\.(gif|png|jpe?g|svg)$/i,
             use: [
@@ -35,6 +37,7 @@ module.exports = env =>
               },
             ],
           },
+          
           {
             test: /\.html$/,
             use: 'html-loader',
