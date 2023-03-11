@@ -4,52 +4,84 @@ import './styles.css';
 
 const getTodo = ({id, value, checked}) =>{
   return `
-  <li class="list-item" data-id=${id}>
-  <input class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
+  <li  class="list-item" data-id=${id}>
+  <input data-action="check" class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
   <span class="input-text">${value}</span>
   <button data-action="delete" class="button">x</button>
   <button data-action="view" class="button">view</button>
 </li>`;
-}
+};
 
 const refs = {
-  form : document.querySelector('#form'),
-  list : document.querySelector('#list'),
-}
+  form: document.querySelector('#form'),
+  list: document.querySelector('#list'),
+};
 
-const todos = [
-  {id:'1',value:'lorem ipsum', checked:true},
-  {id:'2',value:'lorem ipsum', checked:false}
-]
+let todos = [];
+
+const render = () =>{
+  const itemList = todos.map(todo => getTodo(todo)).join('');
+
+  refs.list.innerHTML = '';
+  refs.list.insertAdjacentHTML('beforeend', itemList);
+};
 
 const onSubmit = e =>{
+  e.preventDefault();
+
   const input = e.target.elements.text;
   const {value} = input;
-  const newTodo = {id: uuidv4(), value, checked:false}
-
-  console.log(newTodo); 
-
+  const newTodo = {id: uuidv4(), value, checked:false};
+  
   e.preventDefault();
+
   todos.push(newTodo);
   input.value = '';
+
+  saveTodos();
   render();
-}
-
-
-const deleteTodo = ()=>{
-  console.log('delete')
 };
 
-const viewTodo = ()=>{
-  console.log('view')
+
+
+const loadTodos = () => {
+  try{
+    todos = JSON.parse(localStorage.getItem('todos'))||[];
+  } catch (error) {
+    console.log('error', error);
+    todos = [];
+  } 
 };
 
-const onClick = e => {
+const saveTodos = () => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+const deleteTodo = id => {
+  todos = todos.filter(todo => todo.id !== id);
+  saveTodos();
+  render();
+};
+
+const viewTodo = id => {
+  console.log('viewTodo')
+};
+
+const changeTodo = id =>{
+  todos = todos.map(item => (item.id === id
+    ?{
+    ...item, 
+    checked: !item.checked}
+    :item));
+    saveTodos();
+    render();
+};
+
+
+const onItemClick = e => {
   const {action} = e.target.dataset;
   const parent = e.target.closest('li');
-  const {id} = parent?.dataset||{};
-
-  console.log(id);
+  const {id} = parent?.dataset || {};
 
   switch(action){
     case 'delete':
@@ -58,19 +90,17 @@ const onClick = e => {
     case 'view':
       viewTodo(id);
       break;
+    case 'check':
+      changeTodo(id);
+      break;
   }
 };
 
-const render = () =>{
-  const itemList = todos.map(todo =>getTodo(todo)).join('');
-
-  refs.list.innerHTML = '';
-  refs.list.insertAdjacentHTML('beforeend', itemList);
-};
 
 
+loadTodos();
 render();
 
 refs.form.addEventListener('submit',onSubmit);
-refs.list.addEventListener('click', onClick);
+refs.list.addEventListener('click', onItemClick);
 
