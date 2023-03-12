@@ -1,29 +1,34 @@
 import {v4 as uuidv4} from 'uuid';
 import './styles.css';
-import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
+import * as basicLightbox from 'basiclightbox';
+
+import {modal} from './components/Modal';
+import { getTodo } from './components/TodoHandlers';
 
 
-const getTodo = ({id, value, checked}) =>{
-  return `
-  <li  class="list-item" data-id=${id}>
-  <input data-action="check" class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
-  <span class="input-text">${value}</span>
+
+
+// const getTodo = ({id, value, checked}) =>{
+//   return `
+//   <li  class="list-item" data-id=${id}>
+//   <input data-action="check" class="input-checkbox" type="checkbox" ${checked?'checked':''}/>
+//   <span class="input-text">${value}</span>
   
-  <button data-action="view" class="button">view</button>
-  <button data-action="delete" class="button">x</button>
-</li>`;
-};
+//   <button data-action="view" class="button">view</button>
+//   <button data-action="delete" class="button">x</button>
+// </li>`;
+// };
 
-const modal = basicLightbox.create(`
-<div class="modal">
-    <h2 class="mod-title"></h2>
-    <p class="text">
-        The unique id is <span class="id-value"></span>
-    </p>
-    <button class="button" type="submit" id="button-modal">OK</button>
-</div>
-`);
+// const modal = basicLightbox.create(`
+// <div class="modal">
+//     <h2 class="mod-title"></h2>
+//     <p class="text">
+//         The unique id is <span class="id-value"></span>
+//     </p>
+//     <button class="button" type="submit" id="button-modal">OK</button>
+// </div>
+// `);
 
 
 const refs = {
