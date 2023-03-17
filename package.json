@@ -1,11 +1,11 @@
 {
   "name": "goit-js-68",
   "version": "1.0.0",
-  "description": "",
+  "description": "- встановити плагін Prettier в VS Code\r - \"editor.formatOnSave\": true",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --env.mode development",
-    "build": "webpack --env.mode production",
+    "start": "EXPORT react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
